@@ -2,13 +2,13 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "AllowStartStopForTaggedInstances",
+            "Sid": "AllowStartStopTaggedInstances",
             "Effect": "Allow",
             "Action": [
                 "ec2:StartInstances",
                 "ec2:StopInstances"
             ],
-            "Resource": "arn:aws:ec2:ap-south-1:123456789012:instance/*",
+            "Resource": "arn:aws:ec2:region:account-id:instance/*",
             "Condition": {
                 "StringEquals": {
                     "ec2:ResourceTag/Environment": "Dev"
@@ -16,18 +16,12 @@
             }
         },
         {
-            "Sid": "DenyStartStopWithoutTag",
-            "Effect": "Deny",
+            "Sid": "AllowDescribeInstances",
+            "Effect": "Allow",
             "Action": [
-                "ec2:StartInstances",
-                "ec2:StopInstances"
+                "ec2:DescribeInstances"
             ],
-            "Resource": "arn:aws:ec2:ap-south-1:123456789012:instance/*",
-            "Condition": {
-                "StringNotEquals": {
-                    "ec2:ResourceTag/Environment": "Dev"
-                }
-            }
+            "Resource": "*"
         }
     ]
 }
